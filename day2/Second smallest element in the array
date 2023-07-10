@@ -1,0 +1,54 @@
+public class Solution {
+    public static int[] getSecondOrderElements(int n, int []a) 
+	{
+        int sl = secondLargest(n,a);
+		int ss = secondSmallest(n,a);
+		
+		int []res = new int[2];
+		res[0] = sl;
+		res[1] =ss;
+		return res;
+    }
+
+	public static int secondLargest(int n, int[] a)
+	{
+		int le = a[0];
+		int sle = -1;
+
+		for(int i = 1; i < n; i++)
+		{
+			if(a[i] > le)
+			{
+				sle = le;
+				le = a[i];
+			}
+			else if(a[i] > sle && a[i] !=le)
+			{
+				sle = a[i];
+			}
+		}
+		
+		return sle;
+	}
+
+	public static int secondSmallest(int n, int[] a)
+	{
+		int se = Integer.MAX_VALUE;
+		int ss = -1;
+
+		for(int i = 0; i < n; i++)
+		{
+			if(a[i] < se)
+			{
+				ss = se;
+				se = a[i];
+			}
+			else if(a[i] < ss && a[i] != se)
+			{
+				ss = a[i];
+			}
+		}
+		
+		return ss;
+	}
+}
