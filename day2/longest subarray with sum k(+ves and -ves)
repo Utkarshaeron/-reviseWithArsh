@@ -1,0 +1,34 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+	public static int getLongestSubarray(int []nums, int k) 
+	{
+		HashMap<Integer, Integer> hm = new HashMap<>();
+		// Write your code here.
+
+		int prefixSum= 0;
+		int maxlen = 0;
+
+		for(int i = 0; i < nums.length; i++)
+		{
+			prefixSum+=nums[i];
+
+			if(prefixSum == k) maxlen = Math.max(maxlen, i +1);
+
+			int rem = prefixSum - k;
+
+			if(hm.containsKey(rem))
+			{
+				int len = i - hm.get(rem);
+				maxlen = Math.max(maxlen, len);
+			}
+
+			if(!hm.containsKey(prefixSum))
+			{
+				hm.put(prefixSum, i);
+			}
+		}
+
+		return maxlen;
+	}
+}
