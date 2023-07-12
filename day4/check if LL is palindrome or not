@@ -1,0 +1,46 @@
+class Solution {
+    public boolean isPalindrome(ListNode head)
+    {
+        if( head.next == null) return true;
+        ListNode s = head;
+        ListNode f = head;
+
+        while(f.next!=null && f.next.next!=null)
+        {
+            s = s.next;
+            f= f.next.next;
+        }    
+
+        s.next = reverseLL(s.next);
+
+         s= s.next;
+        ListNode d = head;
+
+        while(s!=null)
+        {
+            if(s.val!=d.val) return false;
+
+            s = s.next;
+            d = d.next;
+        }
+
+        return true;
+
+    }
+
+    public ListNode reverseLL(ListNode head)
+    {
+        ListNode dummy = null;
+        
+        while(head!=null)
+        {
+            ListNode next = head.next;
+            head.next = dummy;
+            dummy = head;
+            head = next;
+
+        }
+
+        return dummy;
+    }
+}
