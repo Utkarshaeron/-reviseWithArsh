@@ -1,0 +1,45 @@
+public class Solution
+{
+    public static int lengthOfLoop(Node head) {
+        // Write your code here
+
+        Node s = head;
+        Node f = head;
+        boolean cycle = false;
+        int len = 0;
+
+
+        while(f!=null && f.next!=null)
+        {
+            s= s.next;
+            f = f.next.next;
+
+            if(s == f)
+            {
+                cycle = true;
+                break;
+            }
+        }
+
+        if(cycle == false) return 0;
+        else
+        {
+            while(s!=head)
+            {
+                s = s.next;
+                head = head.next;
+            }
+        }
+
+         s = s.next;
+         len++;
+
+         while(s!=head)
+         {
+             len++;
+             s = s.next;
+         }
+
+         return len;
+    }
+}
