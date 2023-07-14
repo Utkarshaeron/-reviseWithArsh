@@ -1,0 +1,60 @@
+import java.util.*;
+public class Solution {
+    public static List< Integer > sortedArray(int []a, int []b) 
+    {
+        // Write your code here
+
+        int n1 = a.length;
+        int n2 = b.length;
+
+        List< Integer > res = new ArrayList<>();
+        int i =0 , j= 0;
+
+        while(i < n1 && j < n2)
+        {
+            if(a[i] <= b[j])
+            {
+                if(res.size()==0 ||
+                res.get(res.size()-1)!= a[i])
+                {
+                    res.add(a[i]);
+                }
+
+                 i++;
+            }
+                
+           
+            else{
+                if(res.size()==0||
+                res.get(res.size()-1)!= b[j])
+                {
+                    res.add(b[j]);
+                }
+                j++;
+            }
+            
+        }
+
+        while(i <n1)
+        {
+            if(res.size()==0 ||
+            res.get(res.size()-1)!= a[i])
+                {
+                    res.add(a[i]);
+                }
+                i++;
+        }
+
+         while(j <n2)
+        {
+            if(res.size()==0 ||
+            res.get(res.size()-1)!= b[j])
+                {
+                    res.add(b[j]);
+                }
+                j++;
+        }
+
+        return res;
+    }
+}
