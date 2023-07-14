@@ -1,0 +1,43 @@
+class Solution {
+    public List<String> letterCombinations(String digits) 
+    {
+        if(digits.length() == 0) return new ArrayList<>();
+        List<String> res = kLC(digits);
+
+        return res;    
+    }
+
+
+    static String[] codes = {"abc" , "def" , "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    public List<String> kLC(String str)
+    {
+        
+        if(str.length() == 0)
+        {
+            List<String> bres = new ArrayList<>();
+            bres.add("");
+            return bres;
+        }
+
+        char ch = str.charAt(0);
+        String ros = str.substring(1);
+
+        String codeforch = codes[ch - '0' -2];
+        // System.out.println(codeforch + " codeforch");
+
+        List<String> rres = kLC(ros);
+        List<String> mres = new ArrayList<>();
+
+        for(int i = 0; i < codeforch.length(); i++)
+        {
+            char c = codeforch.charAt(i);
+            for(String rstr : rres){
+                mres.add(c + rstr);
+            }
+        }
+
+        return mres;
+
+        
+    }
+}
