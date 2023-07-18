@@ -1,0 +1,43 @@
+
+public class Solution {
+	public static ArrayList<String> allRootToLeaf(BinaryTreeNode root) 
+	{
+		// Write your code here.
+
+		ArrayList<String> res = new ArrayList<>();
+		if(root == null) return res;
+		String str = "";
+		rRes(root,res, str);
+		
+		return res;
+
+	}
+
+	public static void rRes(BinaryTreeNode root, ArrayList<String> res, String str)
+	{
+		if(root.left == null && root.right == null)
+		{
+			str+=root.data + " ";
+			res.add(str);
+			// System.out.println(res + " ArrayList till now");
+			return;
+		}
+
+		// res.add(root.data + " ");
+		str+=root.data + " ";
+
+		if(root.left!=null) 
+		{
+			rRes(root.left, res, str);
+		}
+
+		if(root.right!=null) 
+		{
+			rRes(root.right, res, str);
+		}
+
+		return;
+
+	}
+
+}
