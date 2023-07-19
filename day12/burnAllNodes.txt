@@ -1,0 +1,117 @@
+import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.io.*;
+import java.util.*;
+// import com.sun.source.tree.BinaryTree;
+
+// import org.graalvm.compiler.graph.spi.Canonicalizable.Binary;
+
+/**********************************************************	
+	
+	Following is the representation of Binary Tree Node:
+ 	
+ 	class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+		
+		public BinaryTreeNode(T data) {
+			this.data = data;
+		}
+	}
+
+*********************************************************/
+
+public class Solution
+{
+	public static BinaryTreeNode<Integer> parentMark(
+													BinaryTreeNode<Integer> root, 
+													HashMap<BinaryTreeNode<Integer>, BinaryTreeNode<Integer>> parent , 
+													int start)
+	{
+		Queue<BinaryTreeNode<Integer>> que = new ArrayDeque<>();
+		que.add(root);
+		BinaryTreeNode<Integer> res = new BinaryTreeNode<Integer>(-1);
+
+		while(!que.isEmpty())
+		{
+			BinaryTreeNode<Integer> node = que.remove();
+			if(node.data == start) res = node;
+
+			if(node.left!=null)
+			{
+				que.add(node.left);
+				parent.put(node.left, node);
+			}
+
+			if(node.right!=null)
+			{
+				que.add(node.right);
+				parent.put(node.right, node);
+			}
+
+		}
+
+		return res;
+	}
+
+	public static int maxNodeDistance(HashMap<BinaryTreeNode<Integer>, 
+								BinaryTreeNode<Integer>> parent ,
+								BinaryTreeNode<Integer> start)
+
+	{
+		Queue<BinaryTreeNode<Integer>> que = new ArrayDeque<>();
+		Map<BinaryTreeNode<Integer> , Boolean > visited = new HashMap<>();
+		que.add(start);
+		int max = 0;
+		visited.put(start, true);
+
+		while(!que.isEmpty())
+		{
+			int fl = 0;
+			int qs = que.size();
+			for(int i = 0; i < qs; i++)
+			{
+				BinaryTreeNode<Integer> node = que.remove();
+
+				if(node.left!=null && visited.get(node.left) == null)
+				{
+					fl = 1;
+					visited.put(node.left, true);
+					que.add(node.left);
+				}
+
+				if(node.right!=null && visited.get(node.right) == null)
+				{
+					fl = 1;
+					visited.put(node.right, true);
+					que.add(node.right);
+				}
+
+				if(parent.get(node)!=null && visited.get(parent.get(node)) == null) 
+				{
+					fl = 1;
+					visited.put(parent.get(node), true);
+					que.add(parent.get(node));
+				}
+			}
+
+			if(fl == 1) max++;
+			
+		}
+
+		return max;
+		
+	}
+public static int timeToBurnTree(BinaryTreeNode<Integer> root, int start)
+    {
+        // Write your code here.
+		 
+		HashMap<BinaryTreeNode<Integer>, BinaryTreeNode<Integer>> parent = new HashMap<>();
+		BinaryTreeNode<Integer> fres = parentMark(root, parent, start);
+		int max = maxNodeDistance(parent, fres);
+
+		return max;
+
+    }
+}
