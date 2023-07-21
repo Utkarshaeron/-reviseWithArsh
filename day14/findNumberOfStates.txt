@@ -1,0 +1,54 @@
+import java.util.* ;
+
+// import com.sun.tools.javac.code.Types.AdaptFailure;
+
+import java.io.*; 
+public class Solution {
+    public static int findNumOfStates(int[][] roads, int n) {
+        // Write your code here.
+
+        ArrayList<ArrayList<Integer>> adjl = new ArrayList<>();
+        for(int i = 0 ;i < n; i++)
+        {
+            adjl.add(new ArrayList<>());
+        }
+
+        for(int i = 0 ; i < n ;i ++)
+        {
+             for(int j = 0 ; j < n; j++)
+             {
+                 if(i!=j && roads[i][j] == 1)
+                 {
+                     adjl.get(i).add(j+1);
+                 }
+             }
+        }
+
+        boolean[] vis= new boolean[n+1];
+        
+        int count = 0;
+        for(int i =1 ; i <=n;i++)
+        {
+            if(!vis[i])
+            {
+                count++;
+                dfs(i, vis, adjl);
+            }
+        }
+
+    return count;
+    }
+
+    public static void dfs(int node, boolean[] vis,
+                            ArrayList<ArrayList<Integer>> adjl)
+
+{
+        vis[node] =true;
+
+        for(int nbr : adjl.get(node-1))
+        {
+            if(!vis[nbr]) dfs(nbr, vis, adjl);
+        }
+
+                            }
+}
