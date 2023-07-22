@@ -1,0 +1,80 @@
+import java.util.* ;
+import java.io.*;
+
+// import com.sun.java.swing.action.NextAction;
+
+public class Solution {
+    
+	static Scanner s = new Scanner(System.in);
+
+	public static class Pair
+	{
+		int nbrnode;
+		int parent;
+		Pair(int nbrnode, int parent)
+		{
+			this.nbrnode = nbrnode;
+			this.parent = parent;
+		}
+	}
+	
+	public static boolean cycleDetectDFS(int node, int parent, boolean [] visited,
+	ArrayList<ArrayList<Integer>> adjlist)
+	{
+		visited[node] = true;
+
+			for(int nbr : adjlist.get(node))
+			{
+				if(!visited[nbr])
+				{
+					if( (cycleDetectDFS(nbr, node, visited, adjlist)) == true) return true;
+				}
+				else if(parent!=nbr)
+				{
+					return true;
+				}
+			}
+
+			return false;
+	}
+	public static void main(String[] args) 
+	{
+		// write your code here
+
+		ArrayList<ArrayList<Integer>> adjlist = new ArrayList<>();
+		
+		int V = s.nextInt();
+		int E = s.nextInt();
+		
+		for(int i = 0 ; i < V ;i++)
+		{
+			adjlist.add(new ArrayList<>());
+		}
+
+		boolean[] visited = new boolean[V];
+		
+		for(int i = 0 ; i < E; i++)
+		{
+			int u = s.nextInt();
+			int v = s.nextInt();
+			adjlist.get(u).add(v);
+			adjlist.get(v).add(u);
+		}
+
+		// System.out.println(adjlist + " adjlist");
+		for(int i = 0 ;i < V; i++)
+		{
+			if(!visited[i])
+			{
+				if( (cycleDetectDFS(i, -1, visited, adjlist)) == true)
+				{
+					System.out.println("True");
+					return;
+				}
+			}
+		}
+
+		System.out.println("False");
+		return;
+	}
+	}
