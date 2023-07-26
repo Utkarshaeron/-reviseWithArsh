@@ -1,0 +1,55 @@
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Queue;
+
+public class Solution {
+    public static int[] shortestPath(int n, int [][]edges, int src) {
+        // Write your code here.
+
+        int[] ans = new int[n];
+        
+        // for(int i = 0 ; i < n; i++) ans[i] = (int)1e9;
+
+        for(int i = 0 ; i < n; i++) ans[i] = (int)1e9;
+
+
+        ArrayList<ArrayList<Integer>> adlist = new ArrayList<>();
+
+        for(int i = 0 ; i <n ;i ++)
+        {
+            adlist.add(new ArrayList<>());
+
+        }
+
+        for(int i = 0 ; i < edges.length; i++)
+        {
+            adlist.get(edges[i][0]).add(edges[i][1]);
+            adlist.get(edges[i][1]).add(edges[i][0]);
+
+        }
+
+        ans[src] = 0;
+        Queue<Integer> que = new ArrayDeque<>();
+        que.add(src);
+
+        while(!que.isEmpty())
+        {
+            int node = que.peek();
+            que.poll();
+            for(int nbr : adlist.get(node))
+            {
+                if(ans[node] + 1 < ans[nbr])
+                {
+                    ans[nbr] = 1 + ans[node];
+                    que.add(nbr); 
+                }
+            }
+        }
+
+        for(int i = 0; i < n; i++)
+        {
+            if(ans[i] == (int)1e9)ans[i] = -1;
+        }
+        return ans;
+    }
+}
