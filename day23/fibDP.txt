@@ -1,0 +1,37 @@
+import java.util.*;
+import java.io.*;
+public class Solution {
+
+
+	public static void main(String[] args) {
+		
+		/* Your class should be named Solution.
+	 	* Read input as specified in the question.
+	 	* Print output as specified in the question.
+		*/
+		Scanner scn = new Scanner(System.in);
+		int n = scn.nextInt();
+
+		int[] qb= new int[n+1];
+
+		int res= fib(n, qb);
+		System.out.println(res);		
+	}
+
+	public static int fib(int n, int[] qb)
+	{
+		
+			if(n==0 || n==1) return n;
+
+			if(qb[n]!=0) return qb[n];
+
+			int fibn1 = fib(n-1, qb);
+			int fibn2 = fib(n-2, qb);
+
+			qb[n] = fibn1 + fibn2;
+
+			return fibn1 + fibn2;
+				
+	}
+
+}
