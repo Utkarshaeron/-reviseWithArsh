@@ -1,0 +1,29 @@
+import java.util.Stack;
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    
+    public static void insert(Stack<Integer> st, int temp) {
+        // write your code here
+        if (st.size() == 0) 
+		{
+			st.push(temp);
+			return;
+		}
+
+        int val = st.pop();
+        insert(st, temp);
+        st.push(val);
+        return;
+    }
+
+    public static void reverseStack(Stack<Integer> st) {
+        if (st.isEmpty() || st.size() == 1) return; 
+        
+        int temp = st.peek();
+        st.pop();
+		reverseStack(st);
+        insert(st, temp);
+        return;
+    }
