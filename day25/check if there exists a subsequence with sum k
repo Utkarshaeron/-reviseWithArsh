@@ -1,0 +1,31 @@
+import java.util.HashMap;
+
+import sun.security.util.Length;
+
+public class Solution {
+    public static boolean isSubsetPresent(int n, int k,int []a) 
+    {
+        // Write your code here
+        return isSubsetThere(0, 0, k, a);
+
+    }
+
+        
+    public static boolean isSubsetThere(int sum, int idx, int k ,int[] a)
+    {
+        if(sum > k) return false;
+        if(idx == a.length)
+        {
+            if(sum == k) return true;
+
+            return false;
+        }
+
+        sum += a[idx];
+        if(isSubsetThere(sum, idx +1, k, a)) return true;
+        sum-=a[idx];
+        if(isSubsetThere(sum, idx + 1, k, a)) return true;
+
+        return false;
+    }
+}
