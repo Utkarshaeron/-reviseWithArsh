@@ -1,0 +1,45 @@
+class Solution {
+    public List<List<String>> partition(String s) 
+    {
+        List<List<String>> res = new ArrayList<>();
+        List<String> inl = new ArrayList<>();
+        recPar(s, 0, res, inl );
+        return res;   
+    }
+    
+        public void recPar(String s, int idx, List<List<String>> res,
+           List<String> inl )
+           {
+               if(idx == s.length())
+               {
+                   res.add(new ArrayList<>(inl));
+                   return;
+               }
+
+               for(int i = idx; i < s.length(); i++)
+               {
+                   if(isPal(s, idx, i))
+                   {
+                       inl.add(s.substring(idx, i +1));
+                       recPar(s, i+1 , res, inl);
+                       inl.remove(inl.size()-1);
+
+                   }
+               }
+
+            
+           }
+
+           public boolean isPal(String s, int st, int end)
+           {
+               while(st<=end)
+               {
+                   if(s.charAt(st++)!=s.charAt(end--))
+                    return false; 
+               }
+
+               return true;
+           }
+
+
+    }
